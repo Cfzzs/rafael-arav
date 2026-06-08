@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts preconnect handled in layout.tsx ── */
+
+/* ── CSS Custom Properties ───────────────────────── */
+:root {
+  --color-amber:    #F5A623;
+  --color-graphite: #1A1A2E;
+  --color-orange:   #E07B39;
+  --color-offwhite: #FAF7F2;
+  --color-charcoal: #2D2D2D;
+}
+
+/* ── Base reset & smooth scroll ─────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-graphite);
+  color: var(--color-offwhite);
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Custom scrollbar ───────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0F0F1A;
+}
+::-webkit-scrollbar-thumb {
+  background: #F5A623;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E07B39;
+}
+
+/* ── Gradient text utility ───────────────────────── */
+@layer utilities {
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #F5A623 0%, #E07B39 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-light {
+    background: linear-gradient(135deg, #FAF7F2 0%, #F5A623 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-gradient-brand {
+    border-image: linear-gradient(135deg, #F5A623, #E07B39) 1;
+  }
+
+  /* Card with glowing top border accent */
+  .card-accent-top {
+    border-top: 3px solid transparent;
+    background-image:
+      linear-gradient(#252545, #252545),
+      linear-gradient(135deg, #F5A623, #E07B39);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .card-accent-top-light {
+    border-top: 3px solid transparent;
+    background-image:
+      linear-gradient(#FFFFFF, #FFFFFF),
+      linear-gradient(135deg, #F5A623, #E07B39);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  /* Section transition fade for video fallback */
+  .video-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(26, 26, 46, 0.45) 0%,
+      rgba(15, 15, 26, 0.88) 100%
+    );
+  }
+
+  /* Input focus ring in brand color */
+  .input-brand:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.5);
+    border-color: #F5A623;
+  }
+
+  /* Button with pulsing glow on hover */
+  .btn-primary {
+    @apply bg-gradient-brand text-brand-graphite font-body font-semibold px-8 py-4 rounded-xl
+           transition-all duration-300 ease-smooth-out
+           hover:shadow-brand-glow hover:scale-[1.03] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply border border-brand-amber text-brand-amber font-body font-semibold px-8 py-4 rounded-xl
+           transition-all duration-300 ease-smooth-out bg-transparent
+           hover:bg-brand-amber hover:text-brand-graphite hover:scale-[1.03] active:scale-[0.98];
+  }
+}
+
+/* ── Ticker animation pause on hover ─────────────── */
+.ticker-wrapper:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+/* ── Reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
